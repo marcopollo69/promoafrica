@@ -99,16 +99,15 @@ def submit_withdrawal(request):
         form = WithdrawalRequestForm(data={'phone_number': phone_number})
         
         if form.is_valid():
-            # Create withdrawal request
-            withdrawal = WithdrawalRequest.objects.create(
-                phone_number=form.cleaned_data['phone_number'],
-                amount_won=amount_won,
-                session_id=request.session.session_key or request.session.create(),
-                status='pending'
-            )
+            # NO DATABASE SAVE REQUIRED
+            # Ideally we would send an SMS here, but for this flow we just return success
             
-            # Store withdrawal ID in session
-            request.session['withdrawal_id'] = withdrawal.id
+            # withdrawal = WithdrawalRequest.objects.create(...)  <-- Removed
+            
+            return JsonResponse({
+            
+            # Store dummy withdrawal ID in session to allow access to next page if needed
+            request.session['withdrawal_id'] = 'dummy_id'
             
             return JsonResponse({
                 'success': True,

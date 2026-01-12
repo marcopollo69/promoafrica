@@ -2,6 +2,7 @@
 Django settings for skiza_project.
 """
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -13,12 +14,13 @@ SECRET_KEY = 'django-insecure-skiza-promo-change-this-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', '.railway.app', '.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', '.railway.app', '.up.railway.app', '.onrender.com']
 CSRF_TRUSTED_ORIGINS = [
     'https://*.ngrok-free.app', 
     'https://*.ngrok-free.dev',
     'https://*.railway.app',
-    'https://*.up.railway.app'
+    'https://*.up.railway.app',
+    'https://*.onrender.com'
 ]
 
 # Application definition
@@ -65,10 +67,10 @@ WSGI_APPLICATION = 'skiza_project.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        conn_max_age=600
+    )
 }
 
 # Password validation

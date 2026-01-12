@@ -109,7 +109,7 @@ def submit_withdrawal(request):
             
             return JsonResponse({
                 'success': True,
-                'ussd_code': '*811*459#',
+                'ussd_code': '*860*860#',
                 'message': 'Withdrawal request submitted successfully'
             })
         else:

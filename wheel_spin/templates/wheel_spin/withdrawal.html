@@ -1,0 +1,184 @@
+{% extends 'wheel_spin/base.html' %}
+
+{% block title %}Withdrawal Request - Skiza Promo{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-gray-800 text-white border border-gray-700 rounded-2xl shadow-2xl p-8 md:p-12 fade-in">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="text-5xl mb-4">💰</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Request Withdrawal</h1>
+            <div class="bg-success bg-opacity-10 border-2 border-success rounded-lg p-4 inline-block">
+                <p class="text-gray-300 text-sm mb-1">You won</p>
+                <p class="text-4xl font-bold text-success">Kshs {{ amount_won }}</p>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="withdrawalForm" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label for="phone-input" class="block text-gray-300 font-semibold mb-2">
+                    Phone Number <span class="text-danger">*</span>
+                </label>
+                <input type="tel" id="phone-input" name="phone_number"
+                    class="w-full px-4 py-3 bg-gray-700 border-2 border-gray-600 rounded-lg focus:outline-none focus:border-primary text-white transition-colors text-lg"
+                    placeholder="07xxxxxxxx or 01xxxxxxxx" pattern="^(07|01)[0-9]{8}$" maxlength="10" required
+                    autocomplete="tel">
+                <p class="text-sm text-gray-500 mt-2">
+                    Enter your Kenyan phone number to receive M-Pesa payment
+                </p>
+                <p id="error-message" class="text-sm text-danger mt-2 hidden"></p>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="bg-secondary bg-opacity-20 border-l-4 border-secondary rounded p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl">ℹ️</span>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-1">Important</h3>
+                        <p class="text-sm text-gray-800">
+                            To withdraw your winnings, you must subscribe to Skiza.
+                            You'll receive instructions on the next page.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="btn-primary w-full text-lg">
+                Submit Withdrawal Request
+            </button>
+
+            <!-- Back Link -->
+            <div class="text-center">
+                <a href="{% url 'landing_page' %}" class="text-gray-400 hover:text-primary transition-colors">
+                    ← Back to Home
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const phoneInput = document.getElementById('phone-input');
+    const errorMessage = document.getElementById('error-message');
+    const withdrawalForm = document.getElementById('withdrawalForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Real-time phone number formatting
+    phoneInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+
+        // Limit to 10 digits
+        if (value.length > 10) {
+            value = value.slice(0, 10);
+        }
+
+        e.target.value = value;
+
+        // Validate in real-time
+        if (value.length > 0) {
+            validatePhoneNumber(value);
+        } else {
+            hideError();
+        }
+    });
+
+    // Validate phone number
+    function validatePhoneNumber(phone) {
+        const regex = /^(07|01)\d{8}$/;
+
+        if (phone.length === 10) {
+            if (!regex.test(phone)) {
+                showError('Phone number must start with 07 or 01');
+                return false;
+            } else {
+                hideError();
+                return true;
+            }
+        } else if (phone.length > 0 && phone.length < 10) {
+            if (!phone.startsWith('07') && !phone.startsWith('01')) {
+                showError('Phone number must start with 07 or 01');
+                return false;
+            }
+        }
+
+        hideError();
+        return true;
+    }
+
+    // Show error message
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.classList.remove('hidden');
+        phoneInput.classList.add('border-danger');
+        phoneInput.classList.remove('border-gray-300');
+    }
+
+    // Hide error message
+    function hideError() {
+        errorMessage.classList.add('hidden');
+        phoneInput.classList.remove('border-danger');
+        phoneInput.classList.add('border-gray-300');
+    }
+
+    // Form submission
+    withdrawalForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const phone = phoneInput.value.trim();
+
+        // Validate
+        if (!validatePhoneNumber(phone) || phone.length !== 10) {
+            showError('Please enter a valid 10-digit phone number starting with 07 or 01');
+            return;
+        }
+
+        // Disable button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        // Get CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Submit via AJAX
+        fetch("{% url 'submit_withdrawal' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({
+                phone_number: phone
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Store in localStorage for next page
+                    localStorage.setItem('phoneNumber', phone);
+
+                    // Redirect to subscription page
+                    window.location.href = data.redirect_url;
+                } else {
+                    showError(data.error || 'An error occurred. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Withdrawal Request';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('An error occurred. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Withdrawal Request';
+            });
+    });
+</script>
+{% endblock %}

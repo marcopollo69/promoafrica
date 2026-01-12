@@ -1,0 +1,187 @@
+{% extends 'wheel_spin/base.html' %}
+
+{% block title %}Subscribe to Skiza - Skiza Promo{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="bg-gray-800 text-white border border-gray-700 rounded-2xl shadow-2xl p-8 md:p-12 fade-in">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="text-5xl mb-4">📱</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Subscribe to Skiza</h1>
+            <p class="text-gray-300">One more step to claim your <span class="font-bold text-primary">Kshs {{amount_won}}</span></p>
+        </div>
+
+        <!-- USSD Code Display -->
+        <div class="bg-gradient-to-r from-primary to-purple-600 rounded-xl p-8 mb-8 text-center">
+            <p class="text-white text-sm mb-3 uppercase tracking-wide">Dial this code</p>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 mb-4">
+                <p id="ussd-code" class="text-5xl md:text-6xl font-bold text-white tracking-wider">{{ ussd_code }}</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button id="copyBtn"
+                    class="bg-white text-primary font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                    📋 Copy Code
+                </button>
+                <a href="tel:{{ ussd_code }}"
+                    class="bg-success text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-block text-center">
+                    📞 Dial Now
+                </a>
+            </div>
+
+            <p id="copyFeedback" class="text-white text-sm mt-3 opacity-0 transition-opacity">✓ Copied to clipboard!</p>
+        </div>
+
+        <!-- Why Subscribe Section -->
+        <div class="bg-secondary bg-opacity-10 rounded-xl p-6 mb-8 border border-secondary border-opacity-20">
+            <h3 class="text-xl font-bold text-white mb-4">📌 Why Subscribe to Skiza?</h3>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <span class="text-success text-xl mr-3">✓</span>
+                    <span class="text-gray-300">Access to thousands of caller tunes</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-success text-xl mr-3">✓</span>
+                    <span class="text-gray-300">Personalize your ringtone experience</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-success text-xl mr-3">✓</span>
+                    <span class="text-gray-300">Required to withdraw your winnings</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-success text-xl mr-3">✓</span>
+                    <span class="text-gray-300">Only Kshs 7 per day</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Instructions -->
+        <div class="border-2 border-gray-600 rounded-xl p-6 mb-8">
+            <h3 class="text-xl font-bold text-white mb-4">📝 Step-by-Step Instructions</h3>
+            <ol class="space-y-4">
+                <li class="flex">
+                    <span
+                        class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-3">1</span>
+                    <div>
+                        <p class="font-semibold text-white">Open your phone dialer</p>
+                        <p class="text-sm text-gray-400">Use your default phone app</p>
+                    </div>
+                </li>
+                <li class="flex">
+                    <span
+                        class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-3">2</span>
+                    <div>
+                        <p class="font-semibold text-white">Dial <span class="text-primary">{{ ussd_code }}</span>
+                        </p>
+                        <p class="text-sm text-gray-400">Or click the "Dial Now" button above</p>
+                    </div>
+                </li>
+                <li class="flex">
+                    <span
+                        class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-3">3</span>
+                    <div>
+                        <p class="font-semibold text-white">Press the call button</p>
+                        <p class="text-sm text-gray-400">Follow the on-screen prompts</p>
+                    </div>
+                </li>
+                <li class="flex">
+                    <span
+                        class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-3">4</span>
+                    <div>
+                        <p class="font-semibold text-white">Complete subscription</p>
+                        <p class="text-sm text-gray-400">You'll receive a confirmation SMS</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="bg-primary bg-opacity-10 border-l-4 border-primary rounded p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <span class="text-2xl">⚠️</span>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-semibold text-gray-800 mb-1">Important Notice</h3>
+                    <p class="text-sm text-gray-700">
+                        Subscription charges apply: <strong>Kshs 7 per day</strong>.
+                        You can unsubscribe anytime. Your winnings will be sent via M-Pesa within 24-48 hours after
+                        subscription.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <a href="{% url 'processing_confirmation' %}" class="btn-primary w-full text-center block text-lg">
+            ✓ I've Subscribed - Continue
+        </a>
+
+        <!-- Back Link -->
+        <div class="text-center mt-4">
+            <a href="{% url 'withdrawal_request' %}" class="text-gray-400 hover:text-primary transition-colors">
+                ← Back
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const copyBtn = document.getElementById('copyBtn');
+    const copyFeedback = document.getElementById('copyFeedback');
+    const ussdCode = "{{ ussd_code }}";
+
+    // Copy USSD code to clipboard
+    copyBtn.addEventListener('click', function () {
+        // Use modern clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(ussdCode)
+                .then(() => {
+                    showCopyFeedback();
+                })
+                .catch(err => {
+                    console.error('Failed to copy:', err);
+                    fallbackCopy();
+                });
+        } else {
+            fallbackCopy();
+        }
+    });
+
+    // Fallback copy method
+    function fallbackCopy() {
+        const textArea = document.createElement('textarea');
+        textArea.value = ussdCode;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            showCopyFeedback();
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+            alert('Failed to copy. Please copy manually: ' + ussdCode);
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    // Show copy feedback
+    function showCopyFeedback() {
+        copyBtn.textContent = '✓ Copied!';
+        copyBtn.classList.add('bg-success');
+        copyFeedback.style.opacity = '1';
+
+        setTimeout(() => {
+            copyBtn.textContent = '📋 Copy Code';
+            copyBtn.classList.remove('bg-success');
+            copyFeedback.style.opacity = '0';
+        }, 2000);
+    }
+</script>
+{% endblock %}

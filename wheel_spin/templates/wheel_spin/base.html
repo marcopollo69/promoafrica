@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="{% block meta_description %}Skiza Spin & Win - Take a chance and win exciting prizes!{% endblock %}">
+    <meta name="keywords" content="Skiza, spin, win, prizes, Kenya, promotion">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Skiza Spin & Win{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Take a chance, win a prize!{% endblock %}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Skiza Spin & Win{% endblock %}">
+
+    <title>{% block title %}Skiza Spin & Win{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B35',
+                        secondary: '#FFD166',
+                        success: '#06D6A0',
+                        danger: '#EF476F',
+                        purple: '#7209B7',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        /* Gradient background - Darker Theme */
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Button hover effects */
+        .btn-primary {
+            @apply bg-primary text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105;
+        }
+        
+        .btn-secondary {
+            @apply bg-secondary text-gray-900 font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation -->
+    <nav class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border-b border-white border-opacity-20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="{% url 'landing_page' %}" class="text-2xl font-bold text-white flex items-center space-x-2">
+                    <span>🎡</span>
+                    <span>Skiza Promo</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="{% url 'how_it_works' %}" class="text-white hover:text-secondary transition-colors">How It
+                        Works</a>
+                    <a href="{% url 'terms_and_conditions' %}"
+                        class="text-white hover:text-secondary transition-colors">Terms</a>
+                    <a href="{% url 'privacy_policy' %}"
+                        class="text-white hover:text-secondary transition-colors">Privacy</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="{% url 'how_it_works' %}"
+                    class="block text-white hover:text-secondary transition-colors py-2">How It Works</a>
+                <a href="{% url 'terms_and_conditions' %}"
+                    class="block text-white hover:text-secondary transition-colors py-2">Terms</a>
+                <a href="{% url 'privacy_policy' %}"
+                    class="block text-white hover:text-secondary transition-colors py-2">Privacy</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border-t border-white border-opacity-20 mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-white">
+                <div>
+                    <h3 class="font-bold text-lg mb-3">Skiza Spin & Win</h3>
+                    <p class="text-sm text-gray-200">Take a chance and win exciting prizes! Subscribe to Skiza to
+                        withdraw your winnings.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-3">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{% url 'how_it_works' %}" class="hover:text-secondary transition-colors">How It
+                                Works</a></li>
+                        <li><a href="{% url 'terms_and_conditions' %}"
+                                class="hover:text-secondary transition-colors">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy_policy' %}" class="hover:text-secondary transition-colors">Privacy
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-3">Contact</h3>
+                    <p class="text-sm text-gray-200">Email: support@skizapromo.co.ke</p>
+                    <p class="text-sm text-gray-200">Phone: +254 700 000 000</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white border-opacity-20 mt-8 pt-6 text-center text-sm text-gray-200">
+                <p>&copy; 2026 Skiza Spin & Win. All rights reserved.</p>
+                <p class="mt-2 text-xs">This is a promotional service. Subscription charges may apply (Kshs 7 per day).
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

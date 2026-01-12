@@ -1,0 +1,168 @@
+{% extends 'wheel_spin/base.html' %}
+
+{% block title %}Terms & Conditions - Skiza Promo{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 fade-in">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-3">Terms & Conditions</h1>
+            <p class="text-gray-600">Last updated: January 12, 2026</p>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="bg-secondary bg-opacity-20 border-l-4 border-secondary rounded p-6 mb-8">
+            <h3 class="font-bold text-gray-800 mb-2">⚠️ Important Notice</h3>
+            <p class="text-gray-700 mb-2">
+                <strong>This is a promotional service.</strong> By participating in Skiza Spin & Win,
+                you agree to the following terms and conditions.
+            </p>
+            <p class="text-gray-700">
+                <strong>Subscription charges apply:</strong> Kshs 7 per day for Skiza service.
+            </p>
+        </div>
+
+        <div class="prose prose-lg max-w-none space-y-6 text-gray-700">
+            <!-- Section 1 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">1. Acceptance of Terms</h2>
+                <p class="leading-relaxed">
+                    By accessing and using the Skiza Spin & Win promotional website, you accept and agree
+                    to be bound by these Terms & Conditions. If you do not agree to these terms,
+                    please do not use this service.
+                </p>
+            </div>
+
+            <!-- Section 2 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">2. Eligibility</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Participants must be Kenyan residents aged 18 years or older</li>
+                    <li>Participants must have a valid Kenyan mobile phone number</li>
+                    <li>Participants must be able to subscribe to Skiza service</li>
+                    <li>Employees of the promotion organizers and their immediate families are not eligible</li>
+                </ul>
+            </div>
+
+            <!-- Section 3 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">3. How the Promotion Works</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Each participant is entitled to one (1) free spin per session</li>
+                    <li>All spins result in a guaranteed prize</li>
+                    <li>Prize amounts range from Kshs 100 to Kshs 5,000</li>
+                    <li>To withdraw winnings, participants must subscribe to Skiza</li>
+                    <li>Prizes are sent via M-Pesa within 24-48 hours of successful subscription verification</li>
+                </ul>
+            </div>
+
+            <!-- Section 4 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">4. Skiza Subscription Requirements</h2>
+                <div class="bg-primary bg-opacity-10 border-l-4 border-primary rounded p-4 mb-3">
+                    <p class="font-semibold text-gray-800">
+                        Prizes are guaranteed upon Skiza subscription.
+                    </p>
+                </div>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Skiza subscription costs Kshs 7 per day</li>
+                    <li>Subscription is required to validate and process withdrawal requests</li>
+                    <li>Participants must maintain active subscription until withdrawal is completed</li>
+                    <li>Participants may unsubscribe after receiving their prize</li>
+                    <li>Standard Safaricom terms and conditions apply to Skiza service</li>
+                </ul>
+            </div>
+
+            <!-- Section 5 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">5. Prize Withdrawal</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Withdrawals are processed only for verified Skiza subscribers</li>
+                    <li>Payment is sent via M-Pesa to the provided phone number</li>
+                    <li>Processing time is 24-48 hours from successful subscription verification</li>
+                    <li>Participants must provide accurate phone number information</li>
+                    <li>The organizers are not responsible for payments sent to incorrect numbers</li>
+                </ul>
+            </div>
+
+            <!-- Section 6 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">6. Limitation of Liability</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>The promotion organizers are not liable for technical failures or interruptions</li>
+                    <li>We reserve the right to suspend or terminate the promotion at any time</li>
+                    <li>We are not responsible for network issues affecting USSD or M-Pesa services</li>
+                    <li>Prizes are subject to availability and may be substituted with equivalent value</li>
+                    <li>Maximum liability is limited to the prize amount won</li>
+                </ul>
+            </div>
+
+            <!-- Section 7 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">7. Fraud and Abuse</h2>
+                <p class="leading-relaxed mb-2">
+                    Any attempt to manipulate, abuse, or defraud the system will result in:
+                </p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Immediate disqualification from the promotion</li>
+                    <li>Forfeiture of any prizes won</li>
+                    <li>Possible legal action</li>
+                    <li>Permanent ban from future promotions</li>
+                </ul>
+            </div>
+
+            <!-- Section 8 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">8. Privacy and Data Protection</h2>
+                <p class="leading-relaxed">
+                    Your personal information will be handled in accordance with our
+                    <a href="{% url 'privacy_policy' %}" class="text-primary hover:underline">Privacy Policy</a>
+                    and Kenyan data protection laws. We collect only necessary information to process
+                    prize withdrawals.
+                </p>
+            </div>
+
+            <!-- Section 9 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">9. Modifications to Terms</h2>
+                <p class="leading-relaxed">
+                    We reserve the right to modify these Terms & Conditions at any time without prior notice.
+                    Continued use of the service after changes constitutes acceptance of modified terms.
+                    The "Last Updated" date at the top of this page indicates when terms were last revised.
+                </p>
+            </div>
+
+            <!-- Section 10 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">10. Governing Law</h2>
+                <p class="leading-relaxed">
+                    These Terms & Conditions are governed by and construed in accordance with the laws of Kenya.
+                    Any disputes arising from this promotion shall be subject to the exclusive jurisdiction of
+                    Kenyan courts.
+                </p>
+            </div>
+
+            <!-- Section 11 -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">11. Contact Information</h2>
+                <p class="leading-relaxed mb-2">
+                    For questions or concerns about these Terms & Conditions, please contact us at:
+                </p>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p><strong>Email:</strong> support@skizapromo.co.ke</p>
+                    <p><strong>Phone:</strong> +254 700 000 000</p>
+                    <p><strong>Hours:</strong> Monday - Friday, 8AM - 6PM EAT</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="mt-12 text-center">
+            <a href="{% url 'landing_page' %}" class="btn-primary inline-block">
+                Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

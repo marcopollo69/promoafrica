@@ -104,8 +104,6 @@ def submit_withdrawal(request):
             
             # withdrawal = WithdrawalRequest.objects.create(...)  <-- Removed
             
-            return JsonResponse({
-            
             # Store dummy withdrawal ID in session to allow access to next page if needed
             request.session['withdrawal_id'] = 'dummy_id'
             

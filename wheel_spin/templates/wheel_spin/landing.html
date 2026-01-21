@@ -11,6 +11,22 @@
         <p class="text-gray-400 text-sm">Your request is being processed.</p>
     </div>
 
+    <!-- Live Winning Toast -->
+    <div id="winning-toast"
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 -translate-y-20 bg-white/10 backdrop-blur-xl text-white px-4 py-3 rounded-2xl shadow-2xl border border-white/20 opacity-0 transition-all duration-500 z-[60] flex items-center gap-3 w-[90%] max-w-[280px]">
+        <div class="bg-amber-500 p-2 rounded-full">
+            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <p class="text-[10px] uppercase tracking-widest text-amber-500 font-bold">New Winner!</p>
+            <p class="text-xs font-semibold" id="winning-toast-content">0725*****7 won Ksh 1000</p>
+        </div>
+    </div>
+
     {% csrf_token %}
     <!-- Header -->
     <div class="text-center mb-8 fade-in">
@@ -517,6 +533,46 @@
             document.getElementById('closeModal').click();
         }
     });
+
+    // Live Winning Toast Logic
+    function showWinningToast() {
+        const toast = document.getElementById('winning-toast');
+        const content = document.getElementById('winning-toast-content');
+
+        // Generate random Kenyan number
+        const prefixes = ['070', '071', '072', '079', '011', '010', '074', '075', '076'];
+        const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        const lastDigit = Math.floor(Math.random() * 10);
+        const phoneNumber = `${prefix}*****${lastDigit}`;
+
+        // Pick individual prize amount from labels (strip 'Kshs ' if needed, or keep formatting)
+        const prizeAmounts = labels.map(l => l.replace('Kshs ', ''));
+        const randomPrize = prizeAmounts[Math.floor(Math.random() * prizeAmounts.length)];
+
+        // Update content
+        content.innerHTML = `${phoneNumber} won <span class="text-amber-500">Ksh ${randomPrize}</span>`;
+
+        // Show toast
+        toast.style.transform = 'translate(calc(-50%), 0)';
+        toast.style.opacity = '1';
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.style.transform = 'translate(calc(-50%), -80px)';
+            toast.style.opacity = '0';
+        }, 3000);
+    }
+
+    // Trigger toast periodically
+    function triggerWinningToasts() {
+        // Set fixed interval of 5 seconds
+        setInterval(() => {
+            showWinningToast();
+        }, 5000);
+    }
+
+    // Start triggering after a short delay
+    setTimeout(triggerWinningToasts, 2000);
 
     // Initial draw
     drawWheel();

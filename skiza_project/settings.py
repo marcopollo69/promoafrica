@@ -14,13 +14,14 @@ SECRET_KEY = 'django-insecure-skiza-promo-change-this-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', '.railway.app', '.up.railway.app', '.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', '.railway.app', '.up.railway.app', '.onrender.com', '.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = [
     'https://*.ngrok-free.app', 
     'https://*.ngrok-free.dev',
     'https://*.railway.app',
     'https://*.up.railway.app',
-    'https://*.onrender.com'
+    'https://*.onrender.com',
+    'https://*.pythonanywhere.com'
 ]
 
 # Application definition
